@@ -1,0 +1,122 @@
+* {
+margin: 0;
+padding: 0;
+}
+
+html body {
+  height: calc(100vh - 50px);
+}
+
+body {background-color: #7f8c8d;}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: #013243;
+  box-shadow: 0px 5px 5px -2px rgba(0,0,0,0.31);
+  z-index: 5;
+}
+
+.navbarLinks {
+  line-height: 50px;
+  text-align: right;
+}
+.navbarLinks li {
+  list-style-type: none;
+  display: inline;
+  text-align: right;
+  padding-right: 20px;
+}
+
+a:link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #3498db;
+}
+
+a:hover {
+  color: #1abc9c;
+}
+
+.container {
+  align-content: center;
+  max-width: 800px;
+  min-height:100%;
+  margin: auto;
+  padding-top: 50px;
+  background-color: #bdc3c7;
+  z-index: 1;
+  box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.31);
+}
+
+.row {
+  min-width: 100%;
+  height: auto;
+  background-color: inherit;
+}
+
+.column {
+  width: 40%;
+  float: left;
+  background-color: inherit;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+/*Page Specific */
+
+p {
+  text-align: center;
+}
+
+h1 {
+  color: #3498db;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#stateMap {
+  max-width: 50%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+/* population */
+
+table {
+  padding-top: 25px;
+  align-content: center;
+}
+
+table tr {
+  padding-top: 10px;
+}
+table tr td {
+  text-align: center;
+}
+
+#pageInfo {
+  display: inline-block;
+  padding-top: 25px;
+}
+
+#pageInfo p {
+  padding-top: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#popvector {
+  padding-top: 5px;
+  max-width: 90%;
+}
+
+#moneyBag {
+  max-width: 100%;
+}

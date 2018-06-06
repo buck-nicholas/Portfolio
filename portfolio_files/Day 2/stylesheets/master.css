@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+* {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: grey;
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  background: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 100%;
+}
+.navbar-brand {
+  letter-spacing: 5px;
+  font-size: 100%;
+}
+.dropdown-menu {
+  background:transparent;
+  border: none;
+}
+.dropdown-menu > a {
+  color: #F5F5F5;
+}
+
+#landingPage {
+  min-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#bgImage {
+  position: absolute;
+  z-index: -2;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  top:0;left: 0;right: 0;bottom: 0;
+  overflow: auto;
+}
+#landingText {
+  margin-top: 25%;
+  margin-left: 15%;
+  width: auto;
+  height: auto;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  color: #E6F5F5F5;
+}
+#landingText h1 {
+  font-size: 7vw;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  /* letter-spacing: -10px; */
+}
+#landingText h3 {
+  font-size: 2vw;
+  margin: 0;
+  margin-top: -1.5vw;
+  padding: 0;
+  text-indent: 17vw;
+}
+#tileContainer {
+  margin: auto;
+  padding: 0;
+
+}
+.absolute-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+#techText {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  color: #E6F5F5F5;
+  text-align: center;
+  margin: auto;
+}
+.techIconStyle {
+  margin: auto;
+  padding: 10px;
+}
+#selfiepic {
+  max-width: 40vh;
+  height: auto;
+  margin: auto;
+  border-radius: 50px;
+  transform: rotate(90deg);
+}
+#aboutmeText {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  color: #E6F5F5F5;
+  text-align: left;
+  margin: auto;
+}
+
+.defaultText   {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  color: #E6F5F5F5;
+  text-align: left;
+  margin: auto;
+}
