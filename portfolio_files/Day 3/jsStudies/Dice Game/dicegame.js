@@ -13,7 +13,9 @@
 // Master function
 function runDiceGame() {
   let setUpInformation = getSetUpInformation();
-  playerTurn();
+  let scoreBoard = cyclePlayers(setUpInformation);
+  printFinalScores(scoreBoard, setUpInformation);
+  forceWin(scoreBoard);
 }
 // universal functions
 function getUserInput(message) {
@@ -93,33 +95,39 @@ function playerTurn() {
   let rollList;
   let rerollOne;
   let rerollTwo;
+  let bonus = 10;
   let sequenceObtained = false;
+  let score = 0;
   for (let i = 1; i < 4; i++) {
     if (i === 1){
       rollList = initialRole(12);
       sequenceObtained = checkRoll(rollList);
+      bonus *= 3;
       console.log("In 1: " + rollList);
     }
     else if (i === 2 && sequenceObtained === false) {
       // do 2nd roll
       rerollOne = reroll(rollList, 8);
       sequenceObtained = checkRoll(rerollOne);
+      bonus *= 2;
       console.log("In 2: " + rerollOne);
     }
     else if (i === 3 && sequenceObtained === false) {
       // do 3rd and final roll
       rerollTwo = reroll(rerollOne, 6);
       sequenceObtained = checkRoll(rerollTwo);
+      bonus *= 1;
       console.log("In 3: " + rerollTwo);
     }
     else {
       break;
     }
   }
-  console.log("Sequence Obtained after all rolls: " + sequenceObtained);
-  // let currentPlayer = playerTurn(playerInformation /*needs turn end array*/);
-  // .indexOf Max Score Array Value for Winner
-  let currentPlayer = 0;
+  if (sequenceObtained) {
+    score = rollDie(20) + bonus;
+  }
+  console.log("Sequence Obtained after all rolls: " + sequenceObtained + " Score: " + score);
+  return score;
 }
 function initialRole(die) {
   let rollList = [];
@@ -143,10 +151,6 @@ function checkRoll(rollList) {
   let sequenceObtained = false
   if (sequenceArray.length === 3) {
     let sequenceObtained = true;
-    console.log("Sequence Obtained");
-  }
-  else {
-    console.log("Sequence has not been obtained.")
   }
   return sequenceObtained;
 }
@@ -166,9 +170,27 @@ function reroll(rollList, die) {
   }
   return reRollList;
 }
-
-
-
+function cyclePlayers(player) {
+  let scoreBoard = []
+  for (let i = 0; i < player.length; i++) {
+    console.log(player[i] + "'s Turn!");
+    scoreBoard.push(playerTurn());
+    console.log(player[i] + " has scored " + scoreBoard[i])
+  }
+  return scoreBoard;
+}
+function printFinalScores(scores, players) {
+  console.log("-----------------------------------------");
+  for (let i = 0; i < players.length; i++) {
+    console.log(players[i] + " scored " + scores[i]);
+  }
+  console.log("-----------------------------------------");
+}
+function forceWin(scoreBoard) {
+  if (scoreBoard.reduce(function(total, amount) {return total + amount;}) === 0) {
+    // write while loop to cycle players until someone has won, record rounds
+  }
+}
 
 
 
