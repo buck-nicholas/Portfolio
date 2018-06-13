@@ -12,7 +12,8 @@
 // bonus, in pace bonus x3 / x2 / x1
 // Master function
 function runDiceGame() {
-  getSetUpInformation()
+  let playerInformation = getSetUpInformation();
+  let scoreListing = initialRole(playerInformation);
 }
 // universal functions
 function getUserInput(message) {
@@ -88,11 +89,27 @@ function setArrayOrder(array, firstP) {
   return array;
 }
 // Player Turn
-
+function initialRole(playerInformation) {
+  let dice = [6, 8, 10];
+  let scoreListing = [];
+  let playerResult = [];
+  for (let i = 0; i < playerInformation.length; i++) {
+    for (let j = 0; j < dice.length; j++) {
+      playerResult.push(rollDie(dice[j]));
+      if (playerResult.length === 3) {
+        scoreListing.push([playerResult]);
+        playerResult = [];
+      }
+    }
+    // playerResult.length = 0;
+    console.log(playerInformation[i] + " has rolled " + [scoreListing[i]]);
+  }
+  return scoreListing;
+}
 // var person = {
 //     firstName:"John",
 //     lastName:"Doe",
 //     age:50,
 //     eyeColor:"blue"
 // };
-getSetUpInformation();
+runDiceGame();
