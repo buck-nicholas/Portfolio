@@ -81,7 +81,6 @@ function determineLowRoll(playerNameArray, playerCount) {
   return firstPIndex;
 }
 function setArrayOrder(array, firstP) {
-  console.log(array);
   if (firstP =! 0) {
     let arrayShift = array.splice(0, firstP);
     array = array.concat(arrayShift);
@@ -97,24 +96,34 @@ function playerTurn() {
   let bonus;
   let sequenceObtained = false;
   let score = 0;
-  let bonusMultiplier = 3;
+  let bonusMultiplier = 0;
   for (let i = 1; i < 4; i++) {
     rollList = initialRole(6);
     sequenceObtained = checkRoll(rollList);
     if (sequenceObtained) {
-      bonus = 10;
-      bonus *= bonusMultiplier;
       break;
     }
     else {
-      bonusMultiplier--;
+      bonusMultiplier++;
     }
   }
   if (sequenceObtained) {
     score = rollDie(20);
+    if (bonusMultiplier === 2) {
+      bonus = 0;
+      score += bonus;
+    }
+    else
+    {bonus = calculateBonus(bonusMultiplier);
     score += bonus;
+    }
   }
   return score;
+}
+function calculateBonus(bonusMultiplier) {
+  let bonusDice = [12, 8];
+  let bonus = rollDie(bonusDice[bonusMultiplier]);
+  return bonus;
 }
 function initialRole(die) {
   let rollList = [];
