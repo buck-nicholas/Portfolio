@@ -15,7 +15,6 @@ function runDiceGame() {
   let setUpInformation = getSetUpInformation();
   let scoreBoard = cyclePlayers(setUpInformation);
   printFinalScores(scoreBoard, setUpInformation);
-  forceWin(scoreBoard);
 }
 // universal functions
 function getUserInput(message) {
@@ -95,43 +94,31 @@ function playerTurn() {
   let rollList;
   let rerollOne;
   let rerollTwo;
-  let bonus = 10;
+  let bonus;
   let sequenceObtained = false;
   let score = 0;
+  let bonusMultiplier = 3;
   for (let i = 1; i < 4; i++) {
-    if (i === 1){
-      rollList = initialRole(12);
-      sequenceObtained = checkRoll(rollList);
-      bonus *= 3;
-      console.log("In 1: " + rollList);
-    }
-    else if (i === 2 && sequenceObtained === false) {
-      // do 2nd roll
-      rerollOne = reroll(rollList, 8);
-      sequenceObtained = checkRoll(rerollOne);
-      bonus *= 2;
-      console.log("In 2: " + rerollOne);
-    }
-    else if (i === 3 && sequenceObtained === false) {
-      // do 3rd and final roll
-      rerollTwo = reroll(rerollOne, 6);
-      sequenceObtained = checkRoll(rerollTwo);
-      bonus *= 1;
-      console.log("In 3: " + rerollTwo);
+    rollList = initialRole(6);
+    sequenceObtained = checkRoll(rollList);
+    if (sequenceObtained) {
+      bonus = 10;
+      bonus *= bonusMultiplier;
+      break;
     }
     else {
-      break;
+      bonusMultiplier--;
     }
   }
   if (sequenceObtained) {
-    score = rollDie(20) + bonus;
+    score = rollDie(20);
+    score += bonus;
   }
-  console.log("Sequence Obtained after all rolls: " + sequenceObtained + " Score: " + score);
   return score;
 }
 function initialRole(die) {
   let rollList = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     let roll = rollDie(die);
     rollList.push(roll);
   }
@@ -150,7 +137,7 @@ function checkRoll(rollList) {
   }
   let sequenceObtained = false
   if (sequenceArray.length === 3) {
-    let sequenceObtained = true;
+    sequenceObtained = true;
   }
   return sequenceObtained;
 }
@@ -159,9 +146,13 @@ function reroll(rollList, die) {
   if (rollList.includes(6) && rollList.includes(5)) {
     reRollList = [6, 5];
     reRollList.push(rollDie(die));
+    reRollList.push(rollDie(die));
+    reRollList.push(rollDie(die));
   }
   else if (rollList.includes(6)) {
     reRollList = [6];
+    reRollList.push(rollDie(die));
+    reRollList.push(rollDie(die));
     reRollList.push(rollDie(die));
     reRollList.push(rollDie(die));
   }
@@ -186,12 +177,6 @@ function printFinalScores(scores, players) {
   }
   console.log("-----------------------------------------");
 }
-function forceWin(scoreBoard) {
-  if (scoreBoard.reduce(function(total, amount) {return total + amount;}) === 0) {
-    // write while loop to cycle players until someone has won, record rounds
-  }
-}
-
 
 
 
