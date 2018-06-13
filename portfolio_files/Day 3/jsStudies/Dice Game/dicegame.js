@@ -12,8 +12,8 @@
 // bonus, in pace bonus x3 / x2 / x1
 // Master function
 function runDiceGame() {
-  let playerInformation = getSetUpInformation();
-  let scoreListing = initialRole(playerInformation);
+  let setUpInformation = getSetUpInformation();
+  playerTurn();
 }
 // universal functions
 function getUserInput(message) {
@@ -89,27 +89,100 @@ function setArrayOrder(array, firstP) {
   return array;
 }
 // Player Turn
-function initialRole(playerInformation) {
-  let dice = [6, 8, 10];
-  let scoreListing = [];
-  let playerResult = [];
-  for (let i = 0; i < playerInformation.length; i++) {
-    for (let j = 0; j < dice.length; j++) {
-      playerResult.push(rollDie(dice[j]));
-      if (playerResult.length === 3) {
-        scoreListing.push([playerResult]);
-        playerResult = [];
+function playerTurn() {
+  let rollList;
+  let rerollOne;
+  let rerollTwo;
+  let sequenceObtained = false;
+  for (let i = 1; i < 4; i++) {
+    if (i === 1){
+      rollList = initialRole(12);
+      sequenceObtained = checkRoll(rollList);
+      console.log("In 1: " + rollList);
+    }
+    else if (i === 2 && sequenceObtained === false) {
+      // do 2nd roll
+      rerollOne = reroll(rollList, 8);
+      sequenceObtained = checkRoll(rerollOne);
+      console.log("In 2: " + rerollOne);
+    }
+    else if (i === 3 && sequenceObtained === false) {
+      // do 3rd and final roll
+      rerollTwo = reroll(rerollOne, 6);
+      sequenceObtained = checkRoll(rerollTwo);
+      console.log("In 3: " + rerollTwo);
+    }
+    else {
+      break;
+    }
+  }
+  console.log("Sequence Obtained after all rolls: " + sequenceObtained);
+  // let currentPlayer = playerTurn(playerInformation /*needs turn end array*/);
+  // .indexOf Max Score Array Value for Winner
+  let currentPlayer = 0;
+}
+function initialRole(die) {
+  let rollList = [];
+  for (let i = 0; i < 3; i++) {
+    let roll = rollDie(die);
+    rollList.push(roll);
+  }
+  return rollList; // as array of 3 values
+}
+function checkRoll(rollList) {
+  let sequenceArray = [];
+  if (rollList.includes(6)) {
+    sequenceArray.push(6);
+    if (rollList.includes(5)) {
+      sequenceArray.push(5);
+      if (rollList.includes(4)) {
+        sequenceArray.push(4);
       }
     }
-    // playerResult.length = 0;
-    console.log(playerInformation[i] + " has rolled " + [scoreListing[i]]);
   }
-  return scoreListing;
+  let sequenceObtained = false
+  if (sequenceArray.length === 3) {
+    let sequenceObtained = true;
+    console.log("Sequence Obtained");
+  }
+  else {
+    console.log("Sequence has not been obtained.")
+  }
+  return sequenceObtained;
 }
-// var person = {
-//     firstName:"John",
-//     lastName:"Doe",
-//     age:50,
-//     eyeColor:"blue"
-// };
+function reroll(rollList, die) {
+  let reRollList = [];
+  if (rollList.includes(6) && rollList.includes(5)) {
+    reRollList = [6, 5];
+    reRollList.push(rollDie(die));
+  }
+  else if (rollList.includes(6)) {
+    reRollList = [6];
+    reRollList.push(rollDie(die));
+    reRollList.push(rollDie(die));
+  }
+  else {
+    reRollList = initialRole(die);
+  }
+  return reRollList;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 runDiceGame();
