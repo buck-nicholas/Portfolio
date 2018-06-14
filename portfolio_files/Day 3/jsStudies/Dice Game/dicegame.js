@@ -2,6 +2,10 @@
 
 // Master function
 function runDiceGame() {
+  console.log("==========================================================================================");
+  console.log("Welcome to Ship, Captain and Crew! In this game, you will have three chances to roll a 6, then a 5, and then a 4 using 5 different dice. In order to score, or keep any dice, you MUST obtain the required dice in that specific order. This is a dice game in which pace is set, so it pays to get a little lucky and score sooner!");
+  console.log("Bonuses are set for obtaining the highest pace!");
+  console.log("==========================================================================================");
   let setUpInformation = getSetUpInformation();
   let scoreBoard = cyclePlayers(setUpInformation);
   printFinalScores(scoreBoard, setUpInformation);
@@ -93,7 +97,6 @@ function playerTurn() {
   sequenceObtained = checkRoll(rollList);
   for (let i = 1; i < 4; i++) {
     // rollList = initialRole(6);
-
     if (sequenceObtained) {
       break;
     }
@@ -105,7 +108,7 @@ function playerTurn() {
   }
   if (sequenceObtained) {
 
-    score = rollDie(20);
+    score = rollDie(20) + rollDie(10);
     if (bonusMultiplier >= 2) {
       bonus = 0;
       score += bonus;
@@ -181,7 +184,7 @@ function cyclePlayers(player) {
     alert(player[i] + "'s Turn!");
     console.log(player[i] + "'s Turn!");
     scoreBoard.push(playerTurn());
-    console.log(player[i] + " has scored " + scoreBoard[i])
+    console.log(player[i] + " has scored " + scoreBoard[i]);
   }
   return scoreBoard;
 }
