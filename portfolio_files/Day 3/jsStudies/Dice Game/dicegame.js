@@ -1,15 +1,5 @@
 "use strict"
 
-// get player names, 1-4 players X
-// use 4 side to determin player rotation, high number goes first, then in ascending order X
-// 20, 6, 8, 12,
-// 4 is score multiplier
-// start rolling with 12, then 8, then 6
-// must get a 6, then a 5, then a 4,
-// pull dice when wanted, but only in order,
-// roll all three max three times
-// if 6, 5, and 4 in that order are reached, role 20 side for score
-// bonus, in pace bonus x3 / x2 / x1
 // Master function
 function runDiceGame() {
   let setUpInformation = getSetUpInformation();
@@ -60,10 +50,12 @@ function getRollCount(reqAmount, sideCount) {
 }
 function determineLowRoll(playerNameArray, playerCount) {
   let firstP = playerNameArray[0];
+  alert(playerNameArray[0] + " will start it off, get ready to roll!")
   let lowRoll = getRollCount(4, 4);
   let firstPIndex = 0;
   console.log(firstP + " has rolled a score of " + lowRoll);
   for (let i = 1; i < playerCount; i++) {
+    alert("Next player up is " + playerNameArray[i] + '. ' + "Get ready!")
     let tempRoll = getRollCount(4, 4);
     console.log(playerNameArray[i] + " has rolled a score of " + tempRoll);
     if (tempRoll === lowRoll) {
@@ -84,7 +76,7 @@ function setArrayOrder(array, firstP) {
   if (firstP =! 0) {
     let arrayShift = array.splice(0, firstP);
     array = array.concat(arrayShift);
-    console.log("newOrder: " + array);
+    console.log("The order is set! " + array);
   }
   return array;
 }
@@ -97,24 +89,29 @@ function playerTurn() {
   let sequenceObtained = false;
   let score = 0;
   let bonusMultiplier = 0;
+  rollList = initialRole(6);
+  sequenceObtained = checkRoll(rollList);
   for (let i = 1; i < 4; i++) {
-    rollList = initialRole(6);
-    sequenceObtained = checkRoll(rollList);
+    // rollList = initialRole(6);
+
     if (sequenceObtained) {
       break;
     }
     else {
+      rollList = reroll(rollList, 6)
+      sequenceObtained = checkRoll(rollList);
       bonusMultiplier++;
     }
   }
   if (sequenceObtained) {
+
     score = rollDie(20);
-    if (bonusMultiplier === 2) {
+    if (bonusMultiplier >= 2) {
       bonus = 0;
       score += bonus;
     }
-    else
-    {bonus = calculateBonus(bonusMultiplier);
+    else {
+    bonus = calculateBonus(bonusMultiplier);
     score += bonus;
     }
   }
@@ -128,6 +125,7 @@ function calculateBonus(bonusMultiplier) {
 function initialRole(die) {
   let rollList = [];
   for (let i = 0; i < 5; i++) {
+
     let roll = rollDie(die);
     rollList.push(roll);
   }
@@ -154,15 +152,22 @@ function reroll(rollList, die) {
   let reRollList = [];
   if (rollList.includes(6) && rollList.includes(5)) {
     reRollList = [6, 5];
+
     reRollList.push(rollDie(die));
+
     reRollList.push(rollDie(die));
+
     reRollList.push(rollDie(die));
   }
   else if (rollList.includes(6)) {
     reRollList = [6];
+
     reRollList.push(rollDie(die));
+
     reRollList.push(rollDie(die));
+
     reRollList.push(rollDie(die));
+
     reRollList.push(rollDie(die));
   }
   else {
@@ -173,6 +178,7 @@ function reroll(rollList, die) {
 function cyclePlayers(player) {
   let scoreBoard = []
   for (let i = 0; i < player.length; i++) {
+    alert(player[i] + "'s Turn!");
     console.log(player[i] + "'s Turn!");
     scoreBoard.push(playerTurn());
     console.log(player[i] + " has scored " + scoreBoard[i])
@@ -186,19 +192,4 @@ function printFinalScores(scores, players) {
   }
   console.log("-----------------------------------------");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 runDiceGame();
